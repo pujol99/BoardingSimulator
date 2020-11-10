@@ -1,6 +1,10 @@
 #include <iostream>
+#include "plane.h"
+
+using namespace std;
 
 int main() {
-    std::cout << "Hello World!";
+    Plane* plane = new Plane();
+    plane->printPlane();
     return 0;
 }
