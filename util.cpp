@@ -6,3 +6,8 @@ int** init_matrix(int rows, int cols){
         matrix[i] = new int[cols];
     return matrix;
 }
+
+void sleep(int ms){
+    this_thread::sleep_for(chrono::milliseconds(ms));
+    system("clear");
+}

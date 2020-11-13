@@ -1,24 +1,28 @@
 #include <iostream>
 #include <vector>
+
 #include "plane.h"
 #include "person.h"
+#include "queue.h"
+
 
 using namespace std;
 
-vector<Person*> init_queue(int size){
-    vector<Person*> queue;
-    for(int i = 0; i < 30; i++){
-        Person* person = new Person(-1, -1, -1, -1);
-        queue.push_back(person);
-    }
-    return queue
-}
 
-int main() {
-    int col_structure[7] = {1,1,1,0,1,1,1};
-    Plane* plane = new Plane(40, col_structure, 7);
+int main()
+{
+    Plane *plane = new Plane(20, {SEAT,SEAT,SEAT,HALL,SEAT,SEAT,SEAT});
+    Queue* queue = new Queue(2);
 
-    vector<Person*> queue = init_queue(30);
+    queue->fill_queue(plane);  
+    queue->sort_queue();  
+
+    do{
+        queue->next_state(plane);
+
+        plane->print_plane();
+        sleep(1000);
+    }while (!queue->all_seated());
 
     return 0;
 }
