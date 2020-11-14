@@ -30,7 +30,18 @@ Plane::Plane(int rows, vector<int> structure)
 void Plane::print_plane(){
     for (int i = 0; i < rows; i++){
         for (int j = 0; j < cols; j++){
-            cout << plane[i][j] << " ";
+            switch (plane[i][j])
+            {
+            case HALL:
+                cout << "  ";
+                break;
+            case SEAT:
+                cout << "- ";
+                break;
+            default:
+                cout << "* ";
+                break;
+            }
         }
         cout << "\n";
     }
@@ -67,4 +78,13 @@ vector<int> Plane::row_clear(int row, int col){
     }
     return persons;
 
+}
+
+void Plane::update_plane(vector<Person*> persons){
+    copy(original, plane, rows, cols);
+    for(int i = 0; i < persons.size(); i++){
+        Person* p = persons.at(i);
+        if(p->state != OUTSIDE)
+            plane[p->x][p->y] = (p->y == hall) ? PERSON : PERSON_SEAT;
+    }
 }

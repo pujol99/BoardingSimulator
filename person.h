@@ -2,7 +2,6 @@
 #define PERSON_H
 
 #include <iostream>
-#include "plane.h"
 
 using namespace std;
 

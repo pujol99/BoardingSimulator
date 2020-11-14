@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <vector>
+
 #include "util.h"
+#include "person.h"
 
 using namespace std;
 
@@ -24,6 +26,7 @@ public:
     void print_original();
     int get_hall();
     bool is_clear(int x, int y);
+    void update_plane(vector<Person*> persons);
     vector<int> row_clear(int row, int col);
 };
 

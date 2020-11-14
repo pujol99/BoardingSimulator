@@ -14,11 +14,11 @@ class Queue
 public:
     vector<Person*> queue;
 
-    Queue(int size);
+    Queue(Plane* plane);
 
     void print_queue();
-    void fill_queue(Plane* plane);
     Person* get_person(int x, int y);
+    vector<Person*> get_persons(int x, int y);
     bool all_seated();
     void next_state(Plane* plane);
     void sort_queue();

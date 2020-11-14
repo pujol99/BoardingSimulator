@@ -9,5 +9,13 @@ int** init_matrix(int rows, int cols){
 
 void sleep(int ms){
     this_thread::sleep_for(chrono::milliseconds(ms));
-    //system("clear");
+    system("clear");
+}
+
+void copy(int** from, int** to, int rows, int cols){
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < cols; j++){
+            to[i][j] = from[i][j];
+        }
+    }
 }
