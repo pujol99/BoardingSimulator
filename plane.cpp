@@ -45,8 +45,8 @@ void Plane::print_original(){
     }
 }
 
-bool Plane::entrance_clear(){
-    return plane[0][hall] == HALL;
+bool Plane::is_clear(int x, int y){
+    return plane[x][y] == HALL;
 }
 
 int Plane::get_hall(){

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum _state {OUTSIDE, WALKING, SEATED, LEAVING, RETURNING};
+enum _state {OUTSIDE, WALKING, SEATED, LEAVING, RETURNING, WAITING};
 
 class Person {
 public:

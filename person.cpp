@@ -10,7 +10,28 @@ Person::Person(int x, int y, int goalx, int goaly){
 
 void Person::print_person(){
     cout << "from (" << this->x << ", " << this->y << ")";
-    cout << " to (" << this->goalx << ", " << this->goaly << ")\n";
+    cout << " to (" << this->goalx << ", " << this->goaly << "), ";
+    switch (state)
+    {
+    case SEATED:
+        cout << "seated\n";
+        break;
+    case OUTSIDE:
+        cout << "outside\n";
+        break;
+    case WALKING:
+        cout << "walking\n";
+        break;
+    case RETURNING:
+        cout << "returning\n";
+        break;
+    case LEAVING:
+        cout << "leaving\n";
+        break;
+    case WAITING:
+        cout << "waiting\n";
+        break;
+    }
 }
 
 void Person::move_forwards(){
@@ -25,11 +46,11 @@ void Person::move_sideways(){
 }
 
 void Person::move_hall(int hall){
-    if(y == hall){
+    if(y == hall)
         state = RETURNING;
-    }else{
-        y = (goaly > hall) ? y + 1 : y - 1;
-    }
+    else
+        y = (goaly > hall) ? y - 1 : y + 1;
+    
 }
 
 void Person::enter_plane(int hall){

@@ -23,7 +23,7 @@ public:
     void print_plane();
     void print_original();
     int get_hall();
-    bool entrance_clear();
+    bool is_clear(int x, int y);
     vector<int> row_clear(int row, int col);
 };
 
