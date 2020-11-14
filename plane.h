@@ -27,7 +27,7 @@ public:
     int get_hall();
     bool is_clear(int x, int y);
     void update_plane(vector<Person*> persons);
-    vector<int> row_clear(int row, int col);
+    vector<int> leave_row(int row, int col);
 };
 
 #endif

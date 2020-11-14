@@ -19,3 +19,27 @@ void copy(int** from, int** to, int rows, int cols){
         }
     }
 }
+
+void read_configuration(int &rows, vector<int> &structure, int &speed){
+    char data[100];
+    int cols;
+
+    ifstream config("configuration.txt");
+
+    config >> data; 
+    speed = atoi(data);
+
+    config >> data; 
+    rows = atoi(data);
+
+    config >> data; 
+    cols = atoi(data);
+
+    config >> data;
+    for(int i = 0; i < cols; i++){
+        cout << (int)data[i] << endl;
+        structure.push_back((int)data[i]-48);
+    }
+
+    config.close();
+}

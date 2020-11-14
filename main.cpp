@@ -11,7 +11,10 @@ using namespace std;
 
 int main()
 {
-    Plane *plane = new Plane(10, {SEAT,SEAT,SEAT,HALL,SEAT,SEAT,SEAT});
+    int rows, speed;
+    vector<int> structure;
+    read_configuration(rows, structure, speed);
+    Plane *plane = new Plane(rows, structure);
     Queue* queue = new Queue(plane);
  
     queue->sort_queue();
@@ -20,7 +23,7 @@ int main()
         queue->next_state(plane);
 
         plane->print_plane();
-        sleep(100);
+        sleep(speed);
     }while (!queue->all_seated());
 
     return 0;

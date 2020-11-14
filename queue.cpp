@@ -19,7 +19,7 @@ void Queue::print_queue(){
 }
 
 bool compare(Person* p1, Person* p2){
-    return 0.5 > ((double) rand() / (RAND_MAX)) + 1;
+    return 0.2 > ((double) rand() / (RAND_MAX)) + 1;
 }
 
 void Queue::sort_queue(){
@@ -58,108 +58,62 @@ vector<Person*> Queue::get_persons(int x, int y){
     return persons;
 }
 
-void Queue::next_state(Plane *plane)
-{
-    vector<Person *>::iterator it = queue.begin();
-    vector<int> persons;
-    vector<Person*> persons3;
-    vector<int>::iterator it2;
-    vector<Person*>::iterator it3;
+void Queue::next_state(Plane *plane){
 
-    for(it; it != queue.end(); ++it)
-    {
-        Person* person = *it;
+    vector<int> persons_row;
+    vector<int>::iterator int_i;
+
+    vector<Person*> persons;
+    vector<Person*>::iterator person_i;
+    
+    vector<Person*>::iterator queue_i = queue.begin();
+
+    for(queue_i; queue_i != queue.end(); ++queue_i){
+
+        Person* person = *queue_i;
         switch (person->state){
         case OUTSIDE:
-    
             if(plane->is_clear(0, plane->hall)){
                 person->enter_plane(plane->hall);
-                plane->plane[person->x][person->y] = PERSON;
             }
             break;
         case WALKING:
             if(person->x == person->goalx){
-        
                 person->move_sideways();
-                plane->plane[person->x][person->y] = PERSON_SEAT;
             }else if (person->x == person->goalx - 1
-                        && plane->is_clear(person->x+1, plane->hall)){
-        
-                persons = plane->row_clear(person->goalx, person->goaly);
-                if(!persons.size()){
-            
+                    && plane->is_clear(person->x+1, plane->hall)){
+                persons_row = plane->leave_row(person->goalx, person->goaly);
+
+                if(!persons_row.size()){
                     person->x++;
                     person->move_sideways();
-                    plane->plane[person->x][person->y] = PERSON_SEAT;
                 }else{
-            
                     person->state = WAITING;
-                    bool wait = false;
-                    it2 = persons.begin();
-                    for(it2; it2 != persons.end(); ++it2){
-                        Person* person2 = get_person(person->goalx, *it2);
-                        if(person2->state == WALKING || person2->state == LEAVING){
-                            wait = true;
-                        }    
-                    }
-                    if(wait)
-                        break;
-                       
-                    it2 = persons.begin();
-                    for(it2; it2 != persons.end(); ++it2){
-                        get_person(person->goalx, *it2)->state = LEAVING;
+
+                    for(int_i = persons_row.begin(); int_i != persons_row.end(); ++int_i){
+                        Person* person2 = get_person(person->goalx, *int_i);
+                        if(person2->state == WALKING || person2->state == LEAVING)
+                            break;
+                    }                      
+                    for(int_i = persons_row.begin(); int_i != persons_row.end(); ++int_i){
+                        get_person(person->goalx, *int_i)->state = LEAVING;
                     }
                 }
             }else if(plane->is_clear(person->x+1, plane->hall)){
-        
                 person->move_forwards();
-                plane->plane[person->x][person->y] = PERSON;
             }
             break;
         case LEAVING:
-    
             person->move_hall(plane->hall);
-            if(person->state == RETURNING)
-                break;
-            plane->plane[person->x][person->y] = (person->y == HALL) ? PERSON : PERSON_SEAT;
             break;
         case RETURNING:
-            if(person->y == plane->hall){
-                persons = plane->row_clear(person->goalx, person->goaly);
-                if(persons.size())
-                    break;
-                persons3 = get_persons(person->x, person->y);
-                if(person->goaly > plane->hall){
-                    int max_y = -1;
-                    it3 = persons3.begin();
-                    for(it3; it3 != persons3.end(); ++it3){
-                        Person* p = *it3;
-                        if(p->goaly > max_y)
-                            max_y = p->goaly;
-                    }
-                    if(person->goaly != max_y)
-                        break;
-                }else{
-                    int min_y = 999;
-                    it3 = persons3.begin();
-                    for(it3; it3 != persons3.end(); ++it3){
-                        Person* p = *it3;
-                        if(p->goaly < min_y)
-                            min_y = p->goaly;
-                    }
-                    if(person->goaly != min_y)
-                        break;
-                }
-            }
             person->move_sideways();
-            plane->plane[person->x][person->y] = PERSON_SEAT;
             break;
         case WAITING:
-            persons = plane->row_clear(person->goalx, person->goaly);
-            if(!persons.size()){
+            persons_row = plane->leave_row(person->goalx, person->goaly);
+            if(!persons_row.size()){
                 person->x++;
                 person->move_sideways();
-                plane->plane[person->x][person->y] = PERSON_SEAT;
             }
             break;
         }

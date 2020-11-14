@@ -68,7 +68,7 @@ int Plane::get_hall(){
     }return 0;
 }
 
-vector<int> Plane::row_clear(int row, int col){
+vector<int> Plane::leave_row(int row, int col){
     vector<int> persons;
 
     int direction = (col > hall) ? 1 : -1;

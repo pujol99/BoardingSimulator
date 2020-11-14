@@ -1,0 +1,10 @@
+10
+25
+7
+1110111
+
+####################
+:execution speed
+:plane rows
+:plane cols (including halls)
+:plane structure {seat 1|hall 0} only 1 hall implemented 
